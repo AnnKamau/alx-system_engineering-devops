@@ -3,7 +3,6 @@
 Module contains function number_of_subscribers
 """
 
-
 import requests
 from sys import argv
 
