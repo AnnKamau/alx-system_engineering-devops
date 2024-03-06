@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""
-Module contains the function top_ten
-"""
+'''
+    this module contains the function top_ten
+'''
 import requests
-import sys import argv
+from sys import argv
 
 
 def top_ten(subreddit):
