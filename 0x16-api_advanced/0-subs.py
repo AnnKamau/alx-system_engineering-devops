@@ -4,21 +4,25 @@ Module contains function number_of_subscribers
 '''
 
 import requests
-from sys import argv
-
-
 def number_of_subscribers(subreddit):
-    '''
-        returns the number of subscribers for a given subreddit
-    '''
-    user = {'User-Agent': 'Lizzie'}
-    url = requests.get('https://www.reddit.com/dev/api/'
-                       .format(subreddit), headers=user).json()
-    try:
-        return url.get('data').get('subscribers')
-    except Exception:
+    """
+    Queries the Reddit API and returns the number of subscribers for a given subreddit.
+    If the subreddit is invalid, returns 0.
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {"User-Agent": "Lizzie"}
+
+      try:
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        if "data" in data and "subscribers" in data["data"]:
+            return data["data"]["subscribers"]
+        else:
+            return 0
+    except requests.RequestException:
         return 0
 
-
-if __name__ == "__main__":
-    number_of_subscribers(argv[1])
+    if __name__ == "__main__":
+    subreddit_name = input("Enter the subreddit name: ")
+    subscribers_count = number_of_subscribers(subreddit_name)
+    print(f"Number of subscribers in r/{subreddit_name}: {subscribers_count}")
